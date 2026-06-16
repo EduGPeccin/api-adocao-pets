@@ -1,0 +1,16 @@
+@baseURL = http://localhost:3000
+### Listar pets (simples)
+GET {{baseURL}}/pets
+Content-Type: application/json
+### Inserir novo pet
+POST http://localhost:3000/pets
+
+Content-Type: application/json
+{
+ "name": "Buddy",
+ "age": 3,
+ "species": "Cachorro",
+ "size": "Médio",
+ "status": "Disponível",
+ "description": "Cachorro brincalhão e leal"
+}
