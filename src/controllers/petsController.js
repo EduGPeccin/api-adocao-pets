@@ -1,4 +1,4 @@
-const livroModel = require("../models/petModel");
+const livroModel = require("../models/petsModel");
 exports.listar = (req, res) => {
  petModel.buscarTodos((err, results) => {
  if (err) return res.status(500).send("Erro ao listar pets");
