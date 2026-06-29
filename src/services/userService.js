@@ -5,7 +5,7 @@ const UserModel = require("../models/usersModel"); // Model responsável pelo ac
 class UserService {
   // Método para registrar um novo usuário
   static async registerUser(user) {
-    const { email, password, role } = user;
+    const { name, email, password, phone, role } = user;
     // Verifica se o e-mail já está cadastrado
     const existing = await UserModel.findByEmail(email);
     if (existing) {
@@ -13,10 +13,14 @@ class UserService {
     }
     // Criptografa a senha antes de salvar no banco
     const hashed = await bcrypt.hash(password, 10);
-    // Substitui a senha original pela criptografada
-    user.password = hashed;
-    // Cria o novo usuário e retorna seu ID
-    const id = await UserModel.create(user);
+    const newUser = {
+      name,
+      email,
+      password: hashed,
+      phone,
+      role: 'user',
+    };
+    const id = await UserModel.create(newUser);
     // Retorna os dados de sucesso (sem lançar erro)
     return { message: "Usuário registrado com sucesso", id };
   }
@@ -34,7 +38,7 @@ class UserService {
     }
     // Gera o token JWT
     const token = jwt.sign(
-      { email: user.email, role: user.role },
+      { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" },
     );
