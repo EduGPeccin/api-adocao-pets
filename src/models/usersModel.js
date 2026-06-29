@@ -1,11 +1,22 @@
-const connection = require("../config/db");
-// Retorna todos os users cadastrados
-exports.buscarTodos = (callback) => {
-    connection.query("SELECT * FROM users", callback);
-};
-// Insere um novo user no banco de dados
-exports.inserir = ({ nome, nickname }, callback) => {
-    const sql = "INSERT INTO users (nome, nickname) VALUES (?, ?)";
-    connection.query(sql, [nome, nickname], callback);
-};
-
+const db = require("../config/db");
+// Importa a conexão pool com o banco de dados
+class UserModel {
+  // Busca um usuário pelo email
+  static async findByEmail(email) {
+    const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [
+      email,
+    ]);
+    return rows[0];
+  }
+  // Cria um novo usuário
+  static async create(user) {
+    const { id, name, email, password, phone, role } = user;
+    const [result] = await db.query(
+      "INSERT INTO users (id, name, email, password, phone, role) VALUES (?, ?, ?, ?, ?, ?)",
+      [id, name, email, password, phone, role],
+    );
+    return result.insertId; // Retorna o ID do usuário criado
+  }
+}
+module.exports = UserModel;
+// Exporta a classe UserModel para ser usada nos services

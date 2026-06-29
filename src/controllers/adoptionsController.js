@@ -1,37 +1,37 @@
-const pontuacaoModel = require("../models/adoptionsModel");
+const adoptionsModel = require("../models/adoptionsModel");
 
-// Lista pontuações com informações do jogador (JOIN)
+// Lista adoptions com informações do jogador (JOIN)
 exports.populares = (req, res) => {
-    pontuacaoModel.populares((err, results) => {
-        if (err) return res.status(500).send("Erro ao listar pontuação com jogadores");
+    adoptionsModel.populares((err, results) => {
+        if (err) return res.status(500).send("Erro ao listar adoções");
         res.json(results);
     });
 };
-// Lista ranking por jogo (JOIN)
-exports.rankingPorJogo = (req, res) => {
-    const { idJogo } = req.params;
+// Lista ranking por Adoptions (JOIN)
+exports.rankingPorAdoptions = (req, res) => {
+    const { idAdoptions } = req.params;
 
-    if (!idJogo || isNaN(idJogo)) {
-        return res.status(400).json({ error: 'ID do jogo inválido' });
+    if (!idAdoptions || isNaN(idAdoptions)) {
+        return res.status(400).json({ error: 'ID do Adoptions inválido' });
     }
 
-    pontuacaoModel.rankingPorJogo(parseInt(idJogo), (err, results) => {
+    adoptionsModel.rankingPorAdoptions(parseInt(idAdoptions), (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(results);
     });
 };
-// Adiciona uma nova pontuação após validar os campos
+// Adiciona uma nova adoptions após validar os campos
 exports.adicionar = (req, res) => {
-    const { jogo_id, jogador_id, pontuacao } = req.body;
+    const { id, user_id, pet_id, adoption_date } = req.body;
     // Validação simples dos campos obrigatórios
-    if (!jogo_id || !jogador_id || !pontuacao) {
+    if (!id || !user_id || !pet_id || !adoption_date) {
         return res.status(400).send("Todos os campos são obrigatórios.");
     }
-     if (pontuacao < 0) {
-        return res.status(400).send("Pontuação não pode ser negativa");
+     if (adoptions < 0) {
+        return res.status(400).send("Adoptions não pode ser negativa");
     }
-    pontuacaoModel.inserir(req.body, (err) => {
-        if (err) return res.status(500).send("Erro ao adicionar pontuação");
-        res.status(201).send("Pontuação adicionada com sucesso");
+    adoptionsModel.inserir(req.body, (err) => {
+        if (err) return res.status(500).send("Erro ao adicionar adoptions");
+        res.status(201).send("Adoptions adicionada com sucesso");
     });
 };

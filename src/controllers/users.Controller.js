@@ -9,10 +9,10 @@ exports.listar = (req, res) => {
 
 // Adiciona um novo user, com validação dos campos
 exports.adicionar = (req, res) => {
-    const { nome, nickname } = req.body;
+    const { id, name, email, password, phone, role } = req.body;
     // Validação dos campos obrigatórios
-    if (!nome || !nickname) {
-        return res.status(400).send("Nome e nickname são obrigatórios");
+    if (!name || !email || !password || !phone || !role) {
+        return res.status(400).send("Todos os campos são obrigatórios");
     }
     usersModel.inserir(req.body, (err) => {
         if (err) return res.status(500).send("Erro ao adicionar user");

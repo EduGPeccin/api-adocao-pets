@@ -1,6 +1,6 @@
-const livroModel = require("../models/petsModel");
+const petsModel = require("../models/petsModel");
 exports.listar = (req, res) => {
- petModel.buscarTodos((err, results) => {
+ petsModel.buscarTodos((err, results) => {
  if (err) return res.status(500).send("Erro ao listar pets");
  res.json(results);
  });
@@ -11,7 +11,7 @@ exports.adicionar = (req, res) => {
  if (!name || !age || !species || !size || !status || !description) {
  return res.status(400).send("Todos os campos são obrigatórios: name, age, species, size, status e description");
  }
- petModel.inserir(req.body, (err) => {
+ petsModel.inserir(req.body, (err) => {
  if (err) {
  console.error("Erro ao adicionar pet:", err);
  return res.status(500).send("Erro ao adicionar pet");

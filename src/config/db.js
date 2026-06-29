@@ -1,15 +1,13 @@
-const mysql = require("mysql2");
-const connection = mysql.createConnection({
- host: "localhost",
- user: "root", // seu usuário do MySQL
- password: "", // sua senha
- database: "pets_db",
+const mysql = require("mysql2/promise");
+require("dotenv").config();
+// Cria a conexão com o banco
+const pool = mysql.createPool({
+ host: process.env.DB_HOST, // Endereço do servidor de banco
+ user: process.env.DB_USER, // Usuário para conectar no banco
+ password: process.env.DB_PASSWORD, // Senha do usuário
+ database: process.env.DB_DATABASE, // Nome do banco que será usado
+ waitForConnections: true, // Faz a conexão aguardar caso todas as conexões estejam ocupadas
+ connectionLimit: 10, // Limita o número máximo de conexões simultâneas
+ queueLimit: 0 // Número máximo de requisições enfileiradas (0 = sem limite)
 });
-connection.connect((err) => {
- if (err) {
- console.error("Erro ao conectar:", err);
- return;
- }
- console.log("Conectado ao banco de dados com sucesso!");
-});
-module.exports = connection;
+module.exports = pool;
