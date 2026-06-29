@@ -1,8 +1,20 @@
+require("dotenv").config();
+
 const express = require("express");
+const authRoutes = require("./src/routes/auth");
+const publicRoutes = require("./src/routes/public");
+const protectedRoutes = require("./src/routes/protected");
+
 const app = express();
-const petsRoutes = require("./src/routes/pets");
+
 app.use(express.json());
-app.use("/pets", petsRoutes);
-app.listen(3000, () => {
-  console.log("Servidor rodando em http://localhost:3000");
+
+app.use("/auth", authRoutes);
+app.use("/public", publicRoutes);
+app.use("/protected", protectedRoutes);
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
