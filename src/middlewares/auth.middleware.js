@@ -11,24 +11,24 @@ function authenticateToken(req, res, next) {
   // Verifica e valida o token usando a chave secreta definida no .env
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) return res.sendStatus(403); // Token inválido: acesso proibido
-    // Se o token for válido, adiciona os dados do usuário decodificados na
-    requisição;
+    // Se o token for válido, adiciona os dados do usuário decodificados na requisição;
     req.user = user;
     // Passa para o próximo middleware ou rota
     next();
   });
 }
 // Middleware para autorizar o acesso com base na função (role) do usuário
-function authorizeRole(role) {
-  return (req, res, next) => {
-    // Verifica se o usuário possui a role exigida
-    if (req.user.role !== role) {
-      // Se não tiver permissão, retorna status 403 (Acesso negado)
-      return res.status(403).json({ message: "Acesso negado" });
-    }
-    // Se autorizado, continua para a próxima função ou rota
-    next();
-  };
+function authorizeAdmin(req, res, next) {
+  if (!req.user) {
+    return res.status(401).json({ message: "Não autenticado" });
+  }
+
+  if (req.user.role !== "admin") {
+    return res.status(403).json({ message: "Acesso negado: apenas admin" });
+  }
+
+  next();
 }
-module.exports = { authenticateToken, authorizeRole };
+
+module.exports = { authenticateToken, authorizeAdmin };
 // Exporta os middlewares para serem usados nas rotas protegidas

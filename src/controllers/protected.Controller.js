@@ -101,7 +101,7 @@ class ProtectedController {
     }
   }
 
-  static async getPetById(req, res) {
+  static async getPetsById(req, res) {
     try {
       const [pets] = await connection.execute(
         "SELECT * FROM pets WHERE id=?",
@@ -123,7 +123,7 @@ class ProtectedController {
     }
   }
 
-  static async createPet(req, res) {
+  static async createPets(req, res) {
     try {
       const { name, age, species, size, status, description } = req.body;
 
@@ -145,7 +145,7 @@ class ProtectedController {
     }
   }
 
-  static async updatePet(req, res) {
+  static async updatePets(req, res) {
     try {
       const { name, age, species, size, status, description } = req.body;
 
@@ -173,7 +173,7 @@ class ProtectedController {
     }
   }
 
-  static async deletePet(req, res) {
+  static async deletePets(req, res) {
     try {
       const [result] = await connection.execute(
         "DELETE FROM pets WHERE id=?",
@@ -229,7 +229,7 @@ class ProtectedController {
       );
 
       await connection.execute(
-        "UPDATE pets SET status='Adotado' WHERE id=?",
+        "UPDATE pets SET status='adopted' WHERE id=?",
         [pet_id]
       );
 
