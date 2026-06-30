@@ -5,7 +5,7 @@ create table users(
 id int auto_increment primary key,
 name varchar(40) not null,
 email varchar(40) not null,
-password varchar(20) not null,
+password varchar(250) not null,
 phone varchar(13) not null,
 role varchar(7) not null
 );
@@ -21,16 +21,24 @@ description varchar(100)
 );
 
 create table adoptions(
-id int auto_increment primary key,
-user_id int,
-pet_id int,
-adoption_date date
-);
+ id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    pet_id INT NOT NULL,
+    adoption_date DATE NOT NULL,
+
+    CONSTRAINT fk_adoption_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id),
+
+    CONSTRAINT fk_adoption_pet
+        FOREIGN KEY (pet_id)
+        REFERENCES pets(id));
 
 INSERT INTO users (name, email, password, phone, role) VALUES
 ('Jose Carlo', 'jose@email.com', '123456', '54999999999', 'adopter'),
 ('Maria Silva', 'maria@email.com', 'senha123', '54988888888', 'adopter'),
-('João Souza', 'joao@email.com', 'admin123', '54977777777', 'admin');
+('João Souza', 'joao@email.com', 'senha22', '54977777777', 'adopter'),
+('admin', 'admin@ifrs.edu.br', '$2b$10$nVF/FhhbBvHqjelLwQ8OcuqSpvfuXZM4wXzCLLeUM38yavgxpBtfW', '123456789', 'admin');
 
 INSERT INTO pets (name, age, species, size, status, description) VALUES
 ('Rex', 3, 'Cachorro', 'large', 'available', 'Muito brincalhão e amigável.'),

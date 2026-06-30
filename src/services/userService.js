@@ -18,7 +18,7 @@ class UserService {
       email,
       password: hashed,
       phone,
-      role: 'user',
+      role: "adopter",
     };
     const id = await UserModel.create(newUser);
     // Retorna os dados de sucesso (sem lançar erro)
@@ -26,23 +26,24 @@ class UserService {
   }
   // Método para autenticar o usuário e gerar token JWT
   static async loginUser({ email, password }) {
-    // Busca o usuário pelo e-mail
     const user = await UserModel.findByEmail(email);
+
     if (!user) {
       throw new Error("Usuário não encontrado");
     }
-    // Verifica se a senha fornecida é válida
+
     const valid = await bcrypt.compare(password, user.password);
+
     if (!valid) {
       throw new Error("Senha inválida");
     }
-    // Gera o token JWT
+
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" },
     );
-    // Retorna o token para o controller
+
     return { token };
   }
 }
