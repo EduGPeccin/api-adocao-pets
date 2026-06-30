@@ -1,5 +1,5 @@
 @baseURL = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MjgzNzI4MCwiZXhwIjoxNzgyODQwODgwfQ.LevFwfWeTzzvfpPlscr2TO41ifiY1nq7Ez4oFvFHv7Q
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBpZnJzLmVkdS5iciIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4Mjg0NDUwMSwiZXhwIjoxNzgyODQ4MTAxfQ.q__43cBnAF23dRLRIObeU3Qpo2SDePGRARFAc2FtGCk
 
 
 ### Lista de pets disponíveis para adoção
@@ -14,7 +14,7 @@ Content-Type: application/json
   "name": "edu",
   "email": "edu@ifrs.edu.br",
   "password": "senha123",
-  "phone": "123456789",
+  "phone": "123456789"
 }
 
 ###
