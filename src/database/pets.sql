@@ -7,7 +7,7 @@ name varchar(40) not null,
 email varchar(40) not null,
 password varchar(20) not null,
 phone varchar(13) not null,
-role varchar(6) not null
+role varchar(7) not null
 );
 
 create table pets(
@@ -28,8 +28,8 @@ adoption_date date
 );
 
 INSERT INTO users (name, email, password, phone, role) VALUES
-('Jose Carlo', 'jose@email.com', '123456', '54999999999', 'user'),
-('Maria Silva', 'maria@email.com', 'senha123', '54988888888', 'user'),
+('Jose Carlo', 'jose@email.com', '123456', '54999999999', 'adopter'),
+('Maria Silva', 'maria@email.com', 'senha123', '54988888888', 'adopter'),
 ('João Souza', 'joao@email.com', 'admin123', '54977777777', 'admin');
 
 INSERT INTO pets (name, age, species, size, status, description) VALUES

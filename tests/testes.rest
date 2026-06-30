@@ -1,6 +1,5 @@
 @baseURL = http://localhost:3000
 
-
 ### Lista de pets disponíveis para adoção
 GET {{baseURL}}/public/pets/available
 

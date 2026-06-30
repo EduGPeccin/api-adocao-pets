@@ -1,4 +1,3 @@
-const connection = require("../config/db");
 // Importa o serviço de usuário que contém a lógica de negócio para registro e login
 const UserService = require("../services/userService");
 // Classe responsável por lidar com as requisições de autenticação (registro e login)
